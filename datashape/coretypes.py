@@ -406,18 +406,7 @@ class String(Unit):
     cls = MEASURE
     __slots__ = 'fixlen', 'encoding'
 
-    def __init__(self, *args):
-        if len(args) == 0:
-            fixlen, encoding = None, None
-        if len(args) == 1:
-            if isinstance(args[0], _strtypes):
-                fixlen, encoding = None, args[0]
-            if isinstance(args[0], _inttypes + (IntegerConstant,)):
-                fixlen, encoding = args[0], None
-        if len(args) == 2:
-            fixlen, encoding = args
-
-        encoding = encoding or 'U8'
+    def __init__(self, fixlen=None, encoding='U8'):
         if isinstance(encoding, str):
             encoding = unicode(encoding)
         try:
@@ -430,7 +419,7 @@ class String(Unit):
             fixlen = fixlen.val
 
         self.encoding = encoding
-        self.fixlen = fixlen
+        self.fixlen = int(fixlen) if fixlen is not None else fixlen
 
         # Put it in a canonical form
 
