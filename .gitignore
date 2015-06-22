@@ -48,3 +48,5 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+datashape/parser.out
+datashape/parsetab.py
